@@ -1,8 +1,7 @@
 
 module Cinch
   module Plugins
-    module EnCinch
-      class Capture
+      class EnCinch
         include Cinch::Plugin
 
         def initialize(*)
@@ -138,6 +137,5 @@ module Cinch
           data
         end
       end
-    end
   end
 end

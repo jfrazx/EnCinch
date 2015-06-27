@@ -7,7 +7,7 @@
 
 module Cinch
   module Plugins
-    module Encinch
+    module EnCinch
       class Encryption
         module Base64
         

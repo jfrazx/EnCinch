@@ -22,7 +22,7 @@ module Cinch
         message = message.join(' ')[1..-1] rescue nil
 
         # retrieve bot options
-        if (message && !message.empty?) && options = @bot.config.plugins.options[Cinch::Plugins::Encinch]
+        if (message && !message.empty?) && options = @bot.config.plugins.options[Cinch::Plugins::EnCinch]
 
           # key exists
           if key = (options[:encrypt][target.downcase] || options[:encrypt][:default])
