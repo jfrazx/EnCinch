@@ -90,7 +90,7 @@ module Cinch
         end
 
         def self.generate
-          # write some shit to generate a key for key exchange?
+          # generate a key for key exchange
         end
         
         private

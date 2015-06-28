@@ -27,11 +27,11 @@ https://github.com/cinchrb/cinch
       c.plugins.plugins = [Cinch::Plugins::EnCinch] # optionally add more plugins
 
       c.plugins.options[Cinch::Plugins::EnCinch] = {
-        :ignore  => ["#ignorechannel", "ignoreperson"],
-        :encrypt => {
+        :ignore     => ["#ignorechannel", "ignoreperson"],
+        :encrypt    => {
           '#cryptedchan'  => "myfishkey",
-          'cryptednick' => "notmyfishkey",
-          :default  => "adefaultfishkey"
+          'cryptednick'   => "mypersonalfishkey",
+          :default        => "defaultfishkey"
         },
         :uncrypted  => ["#plaintext"]
       }
@@ -59,7 +59,7 @@ An array of channels and individuals (other bots?) to ignore encrypted messages.
 :ignore is optional.
 
 ## TODO
-  1) keyexchange
-  2) maybe store keys to a file?
-  3) add commands for updating, removing and adding keys and other settings?
-  4) user feedback... :-)
+  1. keyexchange
+  2. maybe store keys to a file?
+  3. add commands for updating, removing and adding keys and other settings?
+  4. user feedback... :-)

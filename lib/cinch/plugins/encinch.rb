@@ -1,5 +1,5 @@
 require 'cinch'
-require "crypt/blowfish"
-require "encinch/encryption"
-require "encinch/encinch"
-require "encinch/extend"
+require 'crypt/blowfish'
+require "cinch/plugins/encinch/encryption"
+require "cinch/plugins/encinch/encinch"
+require "cinch/plugins/encinch/extend"

@@ -65,7 +65,7 @@ module Cinch
         end
 
         def blowfish(key)
-          @fish = Cinch::Plugins::Encinch::Encryption.new(key)
+          @fish = Cinch::Plugins::EnCinch::Encryption.new(key)
         end
 
         private
