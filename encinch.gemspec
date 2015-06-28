@@ -5,13 +5,13 @@ require 'cinch/plugins/encinch/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "encinch"
-  spec.version       = Cinch::Plugins::Encinch::Version::VERSION
+  spec.version       = EnCinch::Version::VERSION
   spec.authors       = ["jfrazx"]
   spec.email         = ["staringblind@gmail.com"]
-  spec.summary       = %q{Encryption plugin for Cinch IRC Bot Building Framework}
+  spec.summary       = %q{Transparent blowfish encryption plugin for Cinch: An IRC Bot Building Framework}
   spec.description   = %q{}
   spec.platform      = Gem::Platform::RUBY
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/jfrazx/EnCinch"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "cinch", ">= 2.0"
-  spec.add_runtime_dependency "crypt", ">= 2.0"
+  spec.add_runtime_dependency "cinch", "~> 2.0"
+  spec.add_runtime_dependency "crypt", "~> 2.0"
 end

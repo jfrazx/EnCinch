@@ -1,7 +1,7 @@
 
 # Encinch
 
-Transparent blowfish encryption plugin for Cinch the IRC Bot Building Framework
+Transparent blowfish encryption plugin for Cinch: An IRC Bot Building Framework
 
 https://github.com/cinchrb/cinch
 
@@ -17,28 +17,28 @@ https://github.com/cinchrb/cinch
 
 
   bot = Cinch::Bot.new do
-  configure do |c|
-    c.nick            = "EnCinch"
-    c.server          = "irc.freenode.org"
-    c.port            = 7000
-    c.ssl.use         = true
-    c.channels        = ["#cryptedchan", "#plaintext"]
+    configure do |c|
+      c.nick            = "EnCinch"
+      c.server          = "irc.freenode.org"
+      c.port            = 7000
+      c.ssl.use         = true
+      c.channels        = ["#cryptedchan", "#plaintext"]
 
-    c.plugins.plugins = [Cinch::Plugins::EnCinch] # optionally add more plugins
+      c.plugins.plugins = [Cinch::Plugins::EnCinch] # optionally add more plugins
 
-    c.plugins.options[Cinch::Plugins::EnCinch] = {
-      :ignore  => ["#ignorechannel", "ignoreperson"],
-      :encrypt => {
-        '#cryptedchan'  => "myfishkey",
-        'cryptednick' => "notmyfishkey",
-        :default  => "adefaultfishkey"
-      },
-      :uncrypted  => ["#plaintext"]
-    }
+      c.plugins.options[Cinch::Plugins::EnCinch] = {
+        :ignore  => ["#ignorechannel", "ignoreperson"],
+        :encrypt => {
+          '#cryptedchan'  => "myfishkey",
+          'cryptednick' => "notmyfishkey",
+          :default  => "adefaultfishkey"
+        },
+        :uncrypted  => ["#plaintext"]
+      }
+    end
   end
-end
 
-bot.start
+  bot.start
   ```
 
 ## Commands

@@ -27,7 +27,6 @@ module Cinch
           # key exists
           if key = (options[:encrypt][target.downcase] || options[:encrypt][:default])
 
-
             # ignore if target is in the 'uncrypted' array
             unless options[:uncrypted].include?(target.downcase)
 
@@ -37,8 +36,7 @@ module Cinch
             end
           end
         end
-      end
-      
+      end   
 
       @queue.queue(msg)
     end
