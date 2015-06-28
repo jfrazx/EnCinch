@@ -5,7 +5,7 @@ require 'cinch/plugins/encinch/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "encinch"
-  spec.version       = Cinch::Plugins::Encinch::VERSION
+  spec.version       = Cinch::Plugins::Encinch::Version::VERSION
   spec.authors       = ["jfrazx"]
   spec.email         = ["staringblind@gmail.com"]
   spec.summary       = %q{Encryption plugin for Cinch IRC Bot Building Framework}
@@ -21,7 +21,4 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "cinch", ">= 2.0"
   spec.add_runtime_dependency "crypt", ">= 2.0"
-
-  spec.add_development_dependency "bundler", "~> 1.6"
-  spec.add_development_dependency "rake", "= 10.4.2"
 end

@@ -124,10 +124,6 @@ module Cinch
           !!data.match(/\+OK \S+/)
         end
 
-        def reassign_methods
-
-        end
-
         #
         # replace the encrypted message with the decrypted
         #
