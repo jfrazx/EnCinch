@@ -40,8 +40,5 @@ module Cinch
 
       @queue.queue(msg)
     end
-
-    private
-
   end
 end

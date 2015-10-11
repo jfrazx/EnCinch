@@ -22,7 +22,7 @@ https://github.com/cinchrb/cinch
       c.server          = "irc.freenode.org"
       c.port            = 7000
       c.ssl.use         = true
-      c.channels        = ["#cryptedchan", "#plaintext"]
+      c.channels        = ["#cryptedchan", "#plaintext", "#ignorechannel"]
 
       c.plugins.plugins = [Cinch::Plugins::EnCinch] # optionally add more plugins
 

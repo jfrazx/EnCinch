@@ -3,14 +3,14 @@
 # https://github.com/cinchrb/cinch/tree/feature/fish
 # or from weechat's fish plugin
 # https://github.com/weechat/scripts/blob/master/ruby/weefish.rb
-# 
+#
 
 module Cinch
   module Plugins
     class EnCinch
       class Encryption
         module Base64
-        
+
           Alphabet = "./0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".freeze
 
           def self.encode(data)
@@ -60,48 +60,44 @@ module Cinch
         def initialize(key)
           @blowfish = Crypt::Blowfish.new(key)
         end
-        
-        def encrypt(text)
-          text = pad(text, 8)
+
+        def encrypt(data)
+          data = pad(data, 8)
           result = String.new
-          
-          num_block = text.length / 8
+
+          num_block = data.length / 8
           num_block.times do |n|
-            block = text[n*8..(n+1)*8-1]
+            block = data[n*8..(n+1)*8-1]
             enc = @blowfish.encrypt_block(block)
             result += Base64.encode(enc)
           end
-          
+
           return "+OK " << result
         end
-        
-        def decrypt(text)
-          return nil if not text.length % 12 == 0
-          
+
+        def decrypt(data)
+          return nil if not data.length % 12 == 0
+
           result = String.new
-          
-          num_block = (text.length / 12).to_i
+
+          num_block = (data.length / 12).to_i
           num_block.times do |n|
-            block = Base64.decode( text[n*12..(n+1)*12-1] )
+            block = Base64.decode( data[n*12..(n+1)*12-1] )
             result += @blowfish.decrypt_block(block)
           end
-          
+
           return result.gsub(/\0*$/, "")
         end
 
-        def self.generate
-          # generate a key for key exchange
-        end
-        
         private
-        
-        def pad(text, n=8)
-          pad_num = n - (text.length % n)
+
+        def pad(data, n=8)
+          pad_num = n - (data.length % n)
           if pad_num > 0 and pad_num != n
-            pad_num.times { text += 0.chr }
+            pad_num.times { data += 0.chr }
           end
 
-          return text
+          return data
         end
       end
     end
