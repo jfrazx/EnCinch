@@ -1,4 +1,4 @@
-Copyright (c) 2015 Jason Franz
+Copyright (c) 2016 Jason Franz
 
 MIT License
 

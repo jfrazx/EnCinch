@@ -1,44 +1,46 @@
 
 module Cinch
-  module Exceptions
-
-    # error to raise for missing required plugin options
-    class MissingRequiredPluginOptions < Generic
-    end
-  end
-
-
   class IRC
+
+    # alias instead of modify directly
+    alias :encinch_send :send
 
     # Send a message to the server.
     # @param [String] msg
     # @return [void]
     def send(msg)
-
-      # TODO match and modify ACTION
       if msg.match(/(PRIVMSG|NOTICE)/) && !msg.match(/\+OK (\S+)/)
+        _, _, target, message = *msg.match(/(\S+) (\S+) :(.*)/m)
+        target.downcase!
 
-        verb, target, *message = msg.split
-        message = message.join(' ')[1..-1] rescue nil
+        unless message.empty?
+          # retrieve bot options
+          options = @bot.config.shared[:encinch].storage.data
 
-        # retrieve bot options
-        if (message && !message.empty?) && options = @bot.config.plugins.options[Cinch::Plugins::EnCinch]
+          # ignore if target is in the 'uncrypted' array
+          unless options[:uncrypted].include?(target)
 
-          # key exists
-          if key = (options[:encrypt][target.downcase] || options[:encrypt][:default])
+            # match ctcp? and action messages
+            if matched = message.match(/\001ACTION\s(.+)\001/)
+              message = matched[-1]
+            elsif message =~ /\001.+\001/
+              return encinch_send(msg)
+            end
 
-            # ignore if target is in the 'uncrypted' array
-            unless options[:uncrypted].include?(target.downcase)
+            # key exists
+            if key = (options[:encrypt][target] || options[:encrypt][:default])
 
-              fish = Cinch::Plugins::EnCinch::Encryption.new(key)
-              encrypted = fish.encrypt(message)
+              encrypted = Cinch::Plugins::EnCinch::Encryption.new(key).encrypt(message)
               msg.sub!(message, encrypted)
+
+            else
+              return if options[:drop]
             end
           end
         end
-      end   
+      end
 
-      @queue.queue(msg)
+      encinch_send(msg)
     end
   end
 end

@@ -31,28 +31,28 @@ module Cinch
               end
             end
 
-            return res
+            res
           end
 
           def self.decode(data)
             res = String.new
             data = data.dup.force_encoding("BINARY")
+
             data.chars.each_slice(12) do |slice|
               slice = slice.join
               left = right = 0
-
-              slice[0..5].each_char.with_index do |p, i|
-                right |= Alphabet.index(p) << (i * 6)
+              slice[0..5].each_char.with_index do |pi, i|
+                right |= Alphabet.index(pi) << (i * 6)
               end
 
-              slice[6..11].each_char.with_index do |p, i|
-                left |= Alphabet.index(p) << (i * 6)
+              slice[6..11].each_char.with_index do |pi, i|
+                left |= Alphabet.index(pi) << (i * 6)
               end
 
               res << [left, right].pack('L>L>')
             end
 
-            return res
+            res
           end
         end
 
@@ -67,37 +67,38 @@ module Cinch
 
           num_block = data.length / 8
           num_block.times do |n|
-            block = data[n*8..(n+1)*8-1]
+            block = data[n * 8..(n + 1) * 8 - 1]
             enc = @blowfish.encrypt_block(block)
             result += Base64.encode(enc)
           end
 
-          return "+OK " << result
+          "+OK " << result
         end
 
         def decrypt(data)
+          data.sub!(/^\+OK\s+/, '')
+
           return nil if not data.length % 12 == 0
 
           result = String.new
 
           num_block = (data.length / 12).to_i
           num_block.times do |n|
-            block = Base64.decode( data[n*12..(n+1)*12-1] )
+            block = Base64.decode( data[n*12..(n + 1)*12-1] )
             result += @blowfish.decrypt_block(block)
           end
 
-          return result.gsub(/\0*$/, "")
+          result.gsub(/\0*$/, '')
         end
 
         private
 
         def pad(data, n=8)
           pad_num = n - (data.length % n)
-          if pad_num > 0 and pad_num != n
-            pad_num.times { data += 0.chr }
-          end
 
-          return data
+          pad_num.times { data += 0.chr } if pad_num > 0 and pad_num != n
+
+          data
         end
       end
     end
