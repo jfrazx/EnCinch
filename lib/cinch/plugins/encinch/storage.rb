@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Cinch
   module Plugins
     class EnCinch
@@ -23,7 +25,7 @@ module Cinch
             when NilClass
               y
             else
-              if y.nil? || y.empty?
+              if y.nil? || (y.respond_to?(:empty?) && y.empty?)
                 x
               else
                 y
